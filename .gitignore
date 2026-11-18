@@ -1,0 +1,9 @@
+.env
+target/
+*.class
+*.log
+node_modules/
+.idea/
+.vscode/
+*.iml
+loadtests/results/*.json

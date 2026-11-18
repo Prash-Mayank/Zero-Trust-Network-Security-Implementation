@@ -1,0 +1,64 @@
+{
+  "realm": "zerotrust",
+  "enabled": true,
+  "sslRequired": "none",
+  "accessTokenLifespan": 300,
+  "ssoSessionIdleTimeout": 1800,
+  "bruteForceProtected": true,
+  "failureFactor": 5,
+  "maxFailureWaitSeconds": 300,
+  "permanentLockout": false,
+  "roles": {
+    "realm": [
+      { "name": "USER", "description": "Normal user" },
+      { "name": "ADMIN", "description": "Administrator, MFA required" },
+      { "name": "AUDITOR", "description": "Can read the audit log only" }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "zt-client",
+      "name": "Zero Trust test client",
+      "enabled": true,
+      "publicClient": true,
+      "directAccessGrantsEnabled": true,
+      "standardFlowEnabled": true,
+      "redirectUris": ["http://localhost:*"],
+      "webOrigins": ["http://localhost:*"],
+      "protocol": "openid-connect"
+    }
+  ],
+  "users": [
+    {
+      "username": "alice",
+      "enabled": true,
+      "email": "alice@example.test",
+      "firstName": "Alice",
+      "lastName": "User",
+      "emailVerified": true,
+      "credentials": [{ "type": "password", "value": "Alice@12345", "temporary": false }],
+      "realmRoles": ["USER"]
+    },
+    {
+      "username": "bob",
+      "enabled": true,
+      "email": "bob@example.test",
+      "firstName": "Bob",
+      "lastName": "Admin",
+      "emailVerified": true,
+      "credentials": [{ "type": "password", "value": "Bob@12345", "temporary": false }],
+      "realmRoles": ["ADMIN"],
+      "requiredActions": ["CONFIGURE_TOTP"]
+    },
+    {
+      "username": "carol",
+      "enabled": true,
+      "email": "carol@example.test",
+      "firstName": "Carol",
+      "lastName": "Auditor",
+      "emailVerified": true,
+      "credentials": [{ "type": "password", "value": "Carol@12345", "temporary": false }],
+      "realmRoles": ["AUDITOR"]
+    }
+  ]
+}
